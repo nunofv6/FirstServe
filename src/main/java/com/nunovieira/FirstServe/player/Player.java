@@ -36,8 +36,9 @@ public class Player {
 
     public Player() {}
 
-    public Player(String name, String country, LocalDate birthday, PlayingHand hand, BackhandType backhand) {
+    public Player(String name, Integer ranking, String country, LocalDate birthday, PlayingHand hand, BackhandType backhand) {
         this.name = name;
+        this.ranking = ranking;
         this.country = country;
         this.birthday = birthday;
         this.hand = hand;
