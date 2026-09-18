@@ -1,4 +1,4 @@
-package com.nunovieira.FirstServe.match.enums;
+package com.nunovieira.FirstServe.tournament.enums;
 
 public enum SurfaceType {
     HARD,

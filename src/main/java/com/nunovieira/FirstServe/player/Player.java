@@ -34,9 +34,7 @@ public class Player {
     @Enumerated(EnumType.STRING)
     private BackhandType backhand;
 
-    protected Player() {
-
-    }
+    public Player() {}
 
     public Player(String name, String country, LocalDate birthday, PlayingHand hand, BackhandType backhand) {
         this.name = name;
