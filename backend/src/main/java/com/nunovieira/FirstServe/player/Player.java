@@ -2,6 +2,7 @@ package com.nunovieira.FirstServe.player;
 
 import com.nunovieira.FirstServe.player.enums.BackhandType;
 import com.nunovieira.FirstServe.player.enums.PlayingHand;
+import com.nunovieira.FirstServe.tournament.enums.TourTournaments;
 
 import java.time.LocalDate;
 import jakarta.persistence.Column;
@@ -29,6 +30,9 @@ public class Player {
     private LocalDate birthday;
 
     @Enumerated(EnumType.STRING)
+    private TourTournaments tour; 
+
+    @Enumerated(EnumType.STRING)
     private PlayingHand hand;
 
     @Enumerated(EnumType.STRING)
@@ -36,11 +40,12 @@ public class Player {
 
     public Player() {}
 
-    public Player(String name, Integer ranking, String country, LocalDate birthday, PlayingHand hand, BackhandType backhand) {
+    public Player(String name, Integer ranking, String country, LocalDate birthday, TourTournaments tour, PlayingHand hand, BackhandType backhand) {
         this.name = name;
         this.ranking = ranking;
         this.country = country;
         this.birthday = birthday;
+        this.tour = tour;
         this.hand = hand;
         this.backhand = backhand;
     }
@@ -84,6 +89,15 @@ public class Player {
     public void setBirthday(LocalDate birthday) {
         this.birthday = birthday;
     }
+
+    public TourTournaments getTour() {
+        return tour;
+    }
+
+    public void setTour(TourTournaments tour) {
+        this.tour = tour;
+    }
+
 
     public PlayingHand getHand() {
         return hand;

@@ -2,7 +2,7 @@ package com.nunovieira.FirstServe.tournament;
 
 import com.nunovieira.FirstServe.tournament.enums.Category;
 import com.nunovieira.FirstServe.tournament.enums.SurfaceType;
-import com.nunovieira.FirstServe.tournament.enums.Tour;
+import com.nunovieira.FirstServe.tournament.enums.TourTournaments;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -29,7 +29,7 @@ public class Tournament {
     private SurfaceType surface;
 
     @Enumerated(EnumType.STRING)
-    private Tour tour;
+    private TourTournaments tour;
     
     private String country;
     private String city;
@@ -58,10 +58,10 @@ public class Tournament {
     public void setSurface(SurfaceType surface) {
         this.surface = surface;
     }
-    public Tour getTour() {
+    public TourTournaments getTour() {
         return tour;
     }
-    public void setTour(Tour tour) {
+    public void setTour(TourTournaments tour) {
         this.tour = tour;
     }
     public String getCountry() {

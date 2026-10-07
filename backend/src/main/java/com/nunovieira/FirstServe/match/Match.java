@@ -1,14 +1,9 @@
 package com.nunovieira.FirstServe.match;
 
-import com.nunovieira.FirstServe.match.enums.DrawType;
-import com.nunovieira.FirstServe.match.enums.MatchEventStatus;
-import com.nunovieira.FirstServe.match.enums.MatchLifecycleStatus;
-import com.nunovieira.FirstServe.match.enums.MatchOutcome;
-import com.nunovieira.FirstServe.match.enums.RoundCode;
+import com.nunovieira.FirstServe.match.enums.*;
 import com.nunovieira.FirstServe.player.Player;
 import com.nunovieira.FirstServe.tournament.Tournament;
 
-import java.text.Format;
 import java.time.LocalDateTime;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;

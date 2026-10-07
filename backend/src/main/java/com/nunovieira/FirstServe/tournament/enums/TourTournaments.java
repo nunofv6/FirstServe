@@ -1,6 +1,6 @@
 package com.nunovieira.FirstServe.tournament.enums;
 
-public enum Tour {
+public enum TourTournaments {
     ATP,
     WTA,
     CHALLENGER,

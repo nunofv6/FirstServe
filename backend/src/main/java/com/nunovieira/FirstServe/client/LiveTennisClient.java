@@ -1,5 +1,6 @@
 package com.nunovieira.FirstServe.client;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClient;
 
@@ -10,9 +11,10 @@ public class LiveTennisClient {
 
     private final RestClient restClient;
 
-    public LiveTennisClient(RestClient.Builder builder) {
-        this.restClient = builder
+    public LiveTennisClient(@Value("${livetennis.api.key}") String apiKey ) {
+        this.restClient = RestClient.builder()
                 .baseUrl("https://api.livetennisapi.com/api/public/v1")
+                .defaultHeader("Authorization", "Bearer " + apiKey)
                 .build();
     }
 
