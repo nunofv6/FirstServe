@@ -1,9 +1,13 @@
 package com.nunovieira.FirstServe.player;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
 import org.springframework.stereotype.Service;
 
 import com.nunovieira.FirstServe.client.LiveTennisClient;
+import com.nunovieira.FirstServe.client.dto.LiveTennisPlayerDto;
 import com.nunovieira.FirstServe.client.dto.LiveTennisPlayersResponse;
 import com.nunovieira.FirstServe.client.mappers.LiveTennisPlayerMapper;
 
@@ -33,13 +37,29 @@ public class PlayerService {
 
     public void syncPlayers() {
         LiveTennisPlayersResponse response = liveTennisClient.getPlayers(200, 0);
-        List<Player> players = response.data()
+        List<LiveTennisPlayerDto> dtos = response.data()
                 .stream()
                 .filter(dto -> !Boolean.TRUE.equals(dto.is_doubles_team()))
-                .map(liveTennisPlayerMapper::mapToPlayer)
                 .toList();
         
-        playerRepository.saveAll(players);  
+        List<Long> ids = dtos.stream().map(LiveTennisPlayerDto::id).toList();
+        
+        Map<Long, Player> existingPlayers = playerRepository.findByExternalIdIn(ids)
+                .stream()
+                .collect(Collectors.toMap(Player::getExternalId, p -> p));
+
+        List<Player> toSavePlayers = dtos.stream()
+                .map(dto -> {
+                    Player player = existingPlayers.get(dto.id());
+                    if (player == null) {
+                        return liveTennisPlayerMapper.mapToPlayer(dto);
+                    }
+                    liveTennisPlayerMapper.updatePlayer(player, dto);
+                    return player;
+                })
+                .toList();
+
+        playerRepository.saveAll(toSavePlayers);  
     }
 
 }

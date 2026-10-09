@@ -12,7 +12,20 @@ import com.nunovieira.FirstServe.tournament.enums.TourTournaments;
 public class LiveTennisPlayerMapper {
     
     public Player mapToPlayer(LiveTennisPlayerDto dto) {
-        return new Player(dto.name(), dto.ranking(), dto.country(), dto.birthday(), mapTour(dto.tour()), mapPlayingHand(dto.hand()), mapBackhand(dto.backhand()));
+        Player player = new Player();
+        player.setExternalId(dto.id());
+        updatePlayer(player, dto);
+        return player;
+    }
+
+    public void updatePlayer(Player player, LiveTennisPlayerDto dto) {
+        player.setName(dto.name());
+        player.setRanking(dto.ranking());
+        player.setCountry(dto.country());
+        player.setBirthday(dto.birthday());
+        player.setTour(mapTour(dto.tour()));
+        player.setHand(mapPlayingHand(dto.hand()));
+        player.setBackhand(mapBackhand(dto.backhand()));
     }
 
     private TourTournaments mapTour(String tour) {

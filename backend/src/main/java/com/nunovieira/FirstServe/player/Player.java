@@ -22,6 +22,9 @@ public class Player {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(unique = true, nullable = false)
+    private Long externalId;
+
     @Column(nullable = false)
     private String name;
 
@@ -56,6 +59,14 @@ public class Player {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public long getExternalId() {
+        return externalId;
+    }
+
+    public void setExternalId(long externalId) {
+        this.externalId = externalId;
     }
 
     public String getName() {

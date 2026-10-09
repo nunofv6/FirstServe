@@ -1,3 +1,13 @@
 <div>
-    <p> This is a player list</p>
+    <h1> This is a player list. </h1>
+    <table>
+        @for (player of players(); track player.id) {
+        <tr>
+            <td> {{ player.name }} </td>
+            <td> {{ player.country }} </td>
+            <td> {{ player.ranking }} </td>
+            <td> {{ player.tour }} </td>
+         </tr>
+        }
+    </table>
 </div>
