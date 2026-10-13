@@ -1,4 +1,4 @@
-package com.nunovieira.FirstServe.client.dto;
+package com.nunovieira.FirstServe.client.livetennis.dto;
 
 import java.time.LocalDate;
 

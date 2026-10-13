@@ -1,4 +1,4 @@
-package com.nunovieira.FirstServe.client.dto;
+package com.nunovieira.FirstServe.client.livetennis.dto;
 
 public record LiveTennisPlayersMetaDto(
     Integer count,

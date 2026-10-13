@@ -1,8 +1,8 @@
-package com.nunovieira.FirstServe.client.mappers;
+package com.nunovieira.FirstServe.client.livetennis.mappers;
 
 import org.springframework.stereotype.Component;
 
-import com.nunovieira.FirstServe.client.dto.LiveTennisPlayerDto;
+import com.nunovieira.FirstServe.client.livetennis.dto.LiveTennisPlayerDto;
 import com.nunovieira.FirstServe.player.Player;
 import com.nunovieira.FirstServe.player.enums.BackhandType;
 import com.nunovieira.FirstServe.player.enums.PlayingHand;

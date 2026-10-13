@@ -1,10 +1,10 @@
-package com.nunovieira.FirstServe.client;
+package com.nunovieira.FirstServe.client.livetennis;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClient;
 
-import com.nunovieira.FirstServe.client.dto.LiveTennisPlayersResponse;
+import com.nunovieira.FirstServe.client.livetennis.dto.LiveTennisPlayersResponse;
 
 @Component 
 public class LiveTennisClient {
