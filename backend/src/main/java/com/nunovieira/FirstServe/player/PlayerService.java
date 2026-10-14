@@ -2,6 +2,7 @@ package com.nunovieira.FirstServe.player;
 
 import java.util.List;
 
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.nunovieira.FirstServe.client.livetennis.LiveTennisClient;
@@ -17,7 +18,7 @@ public class PlayerService {
     }
 
     public List<Player> getAllPlayers() {
-        List<Player> players = playerRepository.findAll();
+        List<Player> players = playerRepository.findAll(Sort.by("ranking"));
 
         return players;
     }

@@ -11,7 +11,6 @@ import com.nunovieira.FirstServe.client.livetennis.dto.LiveTennisPlayersResponse
 import com.nunovieira.FirstServe.common.SyncJob;
 import com.nunovieira.FirstServe.common.SyncJobRepository;
 import com.nunovieira.FirstServe.common.enums.JobStatus;
-import com.nunovieira.FirstServe.common.enums.JobType;
 
 @Service 
 public class Synchronizer {
@@ -29,9 +28,7 @@ public class Synchronizer {
         this.syncJobRepository = syncJobRepository;
     }
 
-    public void syncPlayers() {
-        SyncJob syncJob = syncJobRepository.findByType(JobType.PLAYERS)
-            .orElseGet(() -> new SyncJob(JobType.PLAYERS, JobStatus.IDLE, null, null, 0));
+    public void syncPlayers(SyncJob syncJob) {
 
         if (syncJob.getStatus() == JobStatus.IDLE) {
             syncJob.setLastStarted(Instant.now());
@@ -41,7 +38,7 @@ public class Synchronizer {
         LiveTennisPlayersResponse response;
         Integer apiCallCount = 0;
         do {
-            response = liveTennisClient.getPlayers(PLAYERS_LIMIT, syncJob.getOffset());
+            response = liveTennisClient.getPlayers(PLAYERS_LIMIT, syncJob.getNextOffset());
 
             apiCallCount++;
 
@@ -50,7 +47,7 @@ public class Synchronizer {
                     .filter(dto -> !Boolean.TRUE.equals(dto.is_doubles_team()))
                     .toList();
 
-            syncJob.setOffset(syncJob.getOffset() + response.meta().count());
+            syncJob.setNextOffset(syncJob.getNextOffset() + response.meta().count());
 
             playerSaver.upsertPlayers(dtos);
             syncJobRepository.save(syncJob);
@@ -58,7 +55,7 @@ public class Synchronizer {
         while (Boolean.TRUE.equals(response.meta().has_more()) && apiCallCount <= DUMMY_API_LIMIT);
 
         if (Boolean.FALSE.equals(response.meta().has_more())) {
-            syncJob.setOffset(0);
+            syncJob.setNextOffset(0);
             syncJob.setLastSynced(Instant.now());
             syncJob.setStatus(JobStatus.IDLE);
             syncJobRepository.save(syncJob);

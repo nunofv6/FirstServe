@@ -26,14 +26,16 @@ public class SyncJob {
     private JobStatus status;
     private Instant lastSynced;
     private Instant lastStarted;
-    private Integer offset;
+    private Integer nextOffset;
 
-    public SyncJob(JobType type, JobStatus status, Instant lastSynced, Instant lastStarted, Integer offset) {
+    protected SyncJob() {}
+    
+    public SyncJob(JobType type, JobStatus status, Instant lastSynced, Instant lastStarted, Integer nextOffset) {
         this.type = type;
         this.status = status;
         this.lastSynced = lastSynced;
         this.lastStarted = lastStarted;
-        this.offset = offset;
+        this.nextOffset = nextOffset;
     }
 
     public Long getId() {
@@ -76,12 +78,12 @@ public class SyncJob {
         this.lastStarted = lastStarted;
     }
 
-    public Integer getOffset() {
-        return offset;
+    public Integer getNextOffset() {
+        return nextOffset;
     }
     
-    public void setOffset(Integer offset) {
-        this.offset = offset;
+    public void setNextOffset(Integer nextOffset) {
+        this.nextOffset = nextOffset;
     }
 
 }
