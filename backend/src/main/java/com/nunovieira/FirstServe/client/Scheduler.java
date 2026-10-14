@@ -22,7 +22,7 @@ public class Scheduler {
         this.syncJobRepository = syncJobRepository;
     }
 
-    @Scheduled(timeUnit = TimeUnit.DAYS, initialDelay = 7, fixedDelay = 7)
+    @Scheduled(timeUnit = TimeUnit.DAYS, fixedDelay = 7)
     public void checkSync() {
 
         for (JobType type : JobType.values()) {
@@ -30,7 +30,7 @@ public class Scheduler {
                         .orElseGet(() -> new SyncJob(type, JobStatus.IDLE, null, null, 0));
 
             switch(type) {
-                case MATCHES:
+                case PLAYERS:
                     if (job.getLastSynced() == null || (job.getStatus() == JobStatus.IDLE && job.getLastSynced().isBefore(Instant.now().minus(Duration.ofDays(7)))) || job.getStatus() == JobStatus.IN_PROGRESS) {
                         synchronizer.syncPlayers(job);
                     }
@@ -38,7 +38,7 @@ public class Scheduler {
                 case TOURNAMENTS:
                     break;
 
-                case PLAYERS:
+                case MATCHES:
                     break;
             }
         }
